@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TaskList from './components/TaskList';
 import TaskInput from './components/TaskInput';
 import './App.css'
@@ -7,15 +7,17 @@ import { generateId } from './utils/IdGenerator';
 
 
 function App() {
-    const [tasks, setTasks] = useState(taskManager.getTasks());
-    const [newTask, setNewTask] = useState('');
+    const [tasks, setTasks] = useState([]);
 
-    function handleAddTask() {
+    useEffect(() => {
+        setTasks(taskManager.getTasks());
+    }, []);
+
+    function handleAddTask(newTask) {
         if (newTask.trim()) {
             const task = { id: generateId(), text: newTask };
             taskManager.addTask(task);
-            setTasks([...taskManager.getTasks()]);
-            setNewTask('');
+            setTasks(taskManager.getTasks());
         }
     }
 
@@ -23,7 +25,7 @@ function App() {
         const index = tasks.findIndex((task) => task.id === id);
         if (index !== -1) {
             taskManager.deleteTask(index);
-            setTasks([...taskManager.getTasks()]);
+            setTasks(taskManager.getTasks());
         }
     }
 
@@ -31,13 +33,7 @@ function App() {
         <>
             <div>
                 <h1>ToDoList</h1>
-                <input
-                    type="text"
-                    value={newTask}
-                    onChange={(e) => setNewTask(e.target.value)}
-                    placeholder="New Task"
-                />
-                <button onClick={handleAddTask}>Add</button>
+                <TaskInput onAdd={handleAddTask} />
                 <TaskList tasks={tasks} onDelete={handleDeleteTask} />
             </div>
         </>

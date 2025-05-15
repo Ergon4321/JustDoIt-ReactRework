@@ -1,14 +1,10 @@
 class TaskManager {
     constructor() {
-        if (TaskManager.instance) {
-            return TaskManager.instance;
+        if (!TaskManager.instance) {
+            this.tasks = [];
+            TaskManager.instance = this;
         }
-        this.tasks = [];
-        TaskManager.instance = this;
-    }
-
-    getTasks() {
-        return this.tasks;
+        return TaskManager.instance;
     }
 
     addTask(task) {
@@ -17,6 +13,10 @@ class TaskManager {
 
     deleteTask(index) {
         this.tasks.splice(index, 1);
+    }
+
+    getTasks() {
+        return [...this.tasks];
     }
 }
 
