@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React, { useState } from 'react';
+import TaskList from './components/TaskList';
+import TaskInput from './components/TaskInput';
 import './App.css'
+import taskManager from './singleton/TaskManager';
+import { generateId } from './utils/IdGenerator';
+
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [tasks, setTasks] = useState(taskManager.getTasks());
+    const [newTask, setNewTask] = useState('');
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    function handleAddTask() {
+        if (newTask.trim()) {
+            const task = { id: generateId(), text: newTask };
+            taskManager.addTask(task);
+            setTasks([...taskManager.getTasks()]);
+            setNewTask('');
+        }
+    }
+
+    function handleDeleteTask(id) {
+        const index = tasks.findIndex((task) => task.id === id);
+        if (index !== -1) {
+            taskManager.deleteTask(index);
+            setTasks([...taskManager.getTasks()]);
+        }
+    }
+
+    return (
+        <>
+            <div>
+                <h1>ToDoList</h1>
+                <input
+                    type="text"
+                    value={newTask}
+                    onChange={(e) => setNewTask(e.target.value)}
+                    placeholder="New Task"
+                />
+                <button onClick={handleAddTask}>Add</button>
+                <TaskList tasks={tasks} onDelete={handleDeleteTask} />
+            </div>
+        </>
+    )
 }
 
 export default App
