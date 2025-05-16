@@ -18,9 +18,13 @@ class TaskManager {
     getTasks() {
         return [...this.tasks];
     }
+
+     setTasks(newTasks) {
+        this.tasks = [...newTasks];
+    }
 }
 
 const taskManager = new TaskManager();
-Object.freeze(taskManager);
+Object.freeze(TaskManager);
 
 export default taskManager;

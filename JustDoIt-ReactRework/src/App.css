@@ -5,24 +5,37 @@
     text-align: center;
 }
 
-ul{
-  list-style-type: none;
-  margin-top: 2rem;
-  width: 100%;
+ul {
+    list-style-type: none;
+    margin-top: 2rem;
+    width: 50rem;
+    border: solid red 1px;
+    padding: 2rem;
 }
 
-li{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: solid 0.1rem #404040;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  margin: 0.2rem;
-  box-shadow: 0.3rem 0.3rem 0.3rem rgba(10, 10, 10, 0.3); 
+button {
+    margin-left: auto;
 }
 
-button{
-  margin-left: auto;
+.task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: solid 0.1rem #404040;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 0.2rem;
+    box-shadow: 0.3rem 0.3rem 0.3rem rgba(10, 10, 10, 0.3);
+    transition: ease-in-out 0.3s;
+    height: 5rem;
+}
+
+.task-item:hover {
+    background-color: #303030;
+    transition: ease-in-out 0.3s;
+}
+
+.task-item:active {
+    transform: scale(1.02);
 }
 
