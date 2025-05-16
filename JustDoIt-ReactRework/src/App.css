@@ -39,3 +39,22 @@ button {
     transform: scale(1.02);
 }
 
+/* Tile info */
+.task-category{
+    width:15%;
+    text-align: left;
+}
+
+.task-content{
+    width: 70%;
+    text-align: left;
+}
+
+.task-priority{
+    text-align: left;
+    width: 15%;
+}
+
+.task-button{
+    margin-left: 1rem;
+}

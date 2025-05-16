@@ -13,12 +13,14 @@ function App() {
     }, []);
 
     function handleAddTask(newTask) {
-        if (newTask.trim()) {
-            const task = { id: generateId(), text: newTask };
-            taskManager.addTask(task);
-            setTasks([...taskManager.getTasks()]);
-        }
+        const task = {
+            id: generateId(),
+            ...newTask, // Rozpakowujemy wszystkie dane z formularza
+        };
+        taskManager.addTask(task);
+        setTasks([...taskManager.getTasks()]);
     }
+
 
     function handleDeleteTask(id) {
         const index = tasks.findIndex((task) => task.id === id);

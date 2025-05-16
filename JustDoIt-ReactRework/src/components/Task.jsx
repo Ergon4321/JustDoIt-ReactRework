@@ -3,11 +3,16 @@ import React from 'react';
 const Task = ({ task, onDelete }) => {
     return (
         <>
-            <div className="task">
-                <span>{task.text}</span>
+            <div className='task-category'>
+                <p>{task.category}</p>
             </div>
+            <div className="task-content">
+                <h3>{task.title}</h3>
+                <p>{task.description}</p>
+            </div>
+            <div className='task-priority'><p>{task.priority}</p></div>
             <div className='task-buttons'>
-                <button onClick={onDelete}>Delete</button>
+                <button className='task-button' onClick={onDelete}>Delete</button>
             </div>
         </>
     );
